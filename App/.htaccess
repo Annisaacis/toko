@@ -1,0 +1,17 @@
+# Deny access to this file
+<Files .htaccess>
+Order allow,deny
+Deny from all
+</Files>
+
+#Disable directory browsing
+Options - Indexes
+
+# menyembulikan isi dir tanpa pesan terlarang
+IndexIgnore *
+
+# Tolak akses ke nama file yang dimulai dengan titik (.)
+<FilesMatch "^\.">
+Order allow, deny
+Deny from all
+<\FilesMatch>

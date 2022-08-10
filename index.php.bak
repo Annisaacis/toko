@@ -1,0 +1,74 @@
+<?php
+session_start();
+
+require "App/db.php";
+require 'App/query.php';
+
+$conn = connect_DB();
+$produk = query_select("produk");
+
+$halaman = "Beranda";
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="admin/css/sb-admin-2.css">
+  <title>Toko Sepatu</title>
+</head>
+ <style>
+	footer {
+		text-align: center;
+	}
+	
+	@media (max-width: 576px) {
+		.card-title {
+			font-size: 14px;
+		}
+		
+		.card-text {
+			font-size: 12px;
+		}
+		
+		footer p {
+			font-size: 8px;
+		}
+	}
+ </style>
+<body>
+  <!-- Navbar -->
+  <?php require 'Comp/navbar.php'; ?>
+  <!-- endnavbar -->
+
+  <!-- content -->
+  <section class="main mt-4 pt-5">
+    <div class="container">
+      <h2 class="mb-4">Produk Terbaru</h2>
+      <div class="row">
+
+        <?php for ($i = 0; $i < count($produk); $i++) : ?>
+          <div class="col-md-3 col-6 mb-4">
+            <div class="card shadow-sm border-0">
+              <img class="card-img-top" src="foto_produk/<?= $produk[$i]['foto'] ?>" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title"><?= $produk[$i]['nama_produk'] ?></h5>
+                <p class="card-text disabled">Rp. <?= number_format($produk[$i]['harga']) ?></p>
+                <a href="beli.php?id=<?= $produk[$i]['id_produk'] ?>" class="btn btn-info btn-sm pl-3 pr-3">Beli</a>
+              </div>
+            </div>
+          </div>
+        <?php endfor; ?>
+
+      </div>
+    </div>
+  </section>
+  <!-- endContent -->
+  
+  <footer class="pt-3 pb-4 bg-light">
+	<p class="mb-0">copyright 2022 | build by <span class="text-info">@joki_koding</span></p>
+  </footer>
+
+  <?php include 'Comp/footer.php'; ?>
